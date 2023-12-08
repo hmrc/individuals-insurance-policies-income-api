@@ -55,11 +55,11 @@ class RetrieveInsurancePoliciesControllerSpec
 
   override val testHateoasLinks: Seq[Link] = Seq(
     hateoas.Link(
-      href = s"/individuals/income-received/insurance-policies/$nino/$taxYear",
+      href = s"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
       method = PUT,
       rel = "create-and-amend-insurance-policies-income"),
-    hateoas.Link(href = s"/individuals/income-received/insurance-policies/$nino/$taxYear", method = GET, rel = "self"),
-    hateoas.Link(href = s"/individuals/income-received/insurance-policies/$nino/$taxYear", method = DELETE, rel = "delete-insurance-policies-income")
+    hateoas.Link(href = s"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear", method = GET, rel = "self"),
+    hateoas.Link(href = s"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear", method = DELETE, rel = "delete-insurance-policies-income")
   )
 
   private val lifeInsuranceItemModel = CommonInsurancePoliciesItem(

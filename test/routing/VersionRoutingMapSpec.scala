@@ -16,17 +16,24 @@
 
 package routing
 
-import play.api.http.HeaderNames.ACCEPT
-import play.api.test.FakeRequest
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.routing.Router
 import support.UnitSpec
 
-class VersionSpec extends UnitSpec {
+class VersionRoutingMapSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  "Versions" when {
+  val defaultRouter: Router = mock[Router]
+  val v1Routes: v1.Routes   = app.injector.instanceOf[v1.Routes]
 
-    "retrieved from a request header" must {
-      "work" in {
-        Versions.getFromRequest(FakeRequest().withHeaders((ACCEPT, "application/vnd.hmrc.1.0+json"))) shouldBe Right(Version1)
+  "map" when {
+    "routing to v1 and v2" should {
+      val versionRoutingMap: VersionRoutingMapImpl = VersionRoutingMapImpl(
+        defaultRouter = defaultRouter,
+        v1Router = v1Routes
+      )
+
+      s"route to ${v1Routes.toString}" in {
+        versionRoutingMap.map(Version1) shouldBe v1Routes
       }
     }
   }

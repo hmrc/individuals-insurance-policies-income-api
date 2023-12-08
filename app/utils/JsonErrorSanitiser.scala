@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package routing
+package utils
 
-import play.api.http.HeaderNames.ACCEPT
-import play.api.test.FakeRequest
-import support.UnitSpec
+object JsonErrorSanitiser {
 
-class VersionSpec extends UnitSpec {
+  def sanitise(str: String): String = {
 
-  "Versions" when {
+    val searchString = "Invalid Json"
 
-    "retrieved from a request header" must {
-      "work" in {
-        Versions.getFromRequest(FakeRequest().withHeaders((ACCEPT, "application/vnd.hmrc.1.0+json"))) shouldBe Right(Version1)
+    if (str.startsWith(searchString)) {
+      "Invalid Json"
+    } else {
+      val index = str.indexOf(searchString)
+      if (index > 0) {
+        str.substring(0, index).trim
+      } else {
+        str.trim
       }
     }
   }

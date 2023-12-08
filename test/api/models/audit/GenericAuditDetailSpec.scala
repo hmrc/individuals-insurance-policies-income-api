@@ -48,29 +48,23 @@ class GenericAuditDetailSpec extends UnitSpec {
       |    "response": {
       |      "httpStatus": $OK,
       |      "body": {
-      |         "employmentId": "$employmentId",
-      |         "links":[
-      |           {
-      |               "href": "/individuals/income-received/employments/$nino/$taxYear",
-      |               "rel": "list-employments",
-      |               "method": "GET"
-      |           },
-      |           {
-      |               "href": "/individuals/income-received/employments/$nino/$taxYear/$employmentId",
-      |               "rel": "self",
-      |               "method": "GET"
-      |           },
-      |           {
-      |               "href": "/individuals/income-received/employments/$nino/$taxYear/$employmentId",
-      |               "rel": "amend-custom-employment",
-      |               "method": "PUT"
-      |           },
-      |           {
-      |               "href": "/individuals/income-received/employments/$nino/$taxYear/$employmentId",
-      |               "rel": "delete-custom-employment",
-      |               "method": "DELETE"
-      |           }
-      |         ]
+      |          "links":[
+      |             {
+      |                "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+      |                "method":"PUT",
+      |                "rel":"create-and-amend-insurance-policies-income"
+      |             },
+      |             {
+      |                "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+      |                "method":"GET",
+      |                "rel":"self"
+      |             },
+      |             {
+      |                "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+      |                "method":"DELETE",
+      |                "rel":"delete-insurance-policies-income"
+      |             }
+      |          ]
       |       }
       |    }
       |}
@@ -97,31 +91,25 @@ class GenericAuditDetailSpec extends UnitSpec {
     response = AuditResponse(
       OK,
       Right(Some(Json.parse(s"""
-          |{
-          |   "employmentId": "$employmentId",
-          |   "links":[
-          |      {
-          |         "href": "/individuals/income-received/employments/$nino/$taxYear",
-          |         "rel": "list-employments",
-          |         "method": "GET"
-          |      },
-          |      {
-          |         "href": "/individuals/income-received/employments/$nino/$taxYear/$employmentId",
-          |         "rel": "self",
-          |         "method": "GET"
-          |      },
-          |      {
-          |         "href": "/individuals/income-received/employments/$nino/$taxYear/$employmentId",
-          |         "rel": "amend-custom-employment",
-          |         "method": "PUT"
-          |      },
-          |      {
-          |         "href": "/individuals/income-received/employments/$nino/$taxYear/$employmentId",
-          |         "rel": "delete-custom-employment",
-          |         "method": "DELETE"
-          |      }
-          |   ]
-          |}
+        {
+        | "links":[
+        |    {
+        |       "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+        |       "method":"PUT",
+        |       "rel":"create-and-amend-insurance-policies-income"
+        |    },
+        |    {
+        |       "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+        |       "method":"GET",
+        |       "rel":"self"
+        |    },
+        |    {
+        |       "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+        |       "method":"DELETE",
+        |       "rel":"delete-insurance-policies-income"
+        |    }
+        | ]
+        |}
         """.stripMargin)))
     )
   )

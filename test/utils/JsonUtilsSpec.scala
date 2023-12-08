@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-package routing
+package utils
 
-import play.api.http.HeaderNames.ACCEPT
-import play.api.test.FakeRequest
+import play.api.libs.json._
 import support.UnitSpec
 
-class VersionSpec extends UnitSpec {
+class JsonUtilsSpec extends UnitSpec with JsonUtils {
 
-  "Versions" when {
+  "mapEmptySeqToNone" must {
+    val reads = __.readNullable[Seq[String]].mapEmptySeqToNone
 
-    "retrieved from a request header" must {
-      "work" in {
-        Versions.getFromRequest(FakeRequest().withHeaders((ACCEPT, "application/vnd.hmrc.1.0+json"))) shouldBe Right(Version1)
-      }
+    "map non-empty sequence to Some(non-empty sequence)" in {
+      JsArray(Seq(JsString("value0"), JsString("value1"))).as(reads) shouldBe Some(Seq("value0", "value1"))
+    }
+
+    "map empty sequence to None" in {
+      JsArray.empty.as(reads) shouldBe None
+    }
+
+    "map None to None" in {
+      JsNull.as(reads) shouldBe None
     }
   }
 
