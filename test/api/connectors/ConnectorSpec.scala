@@ -77,12 +77,6 @@ trait ConnectorSpec extends UnitSpec with Status with MimeTypes with HeaderNames
     "X-Session-Id"
   )
 
-  val requiredDesHeaders: Seq[(String, String)] = List(
-    "Environment"   -> "des-environment",
-    "Authorization" -> s"Bearer des-token",
-    "CorrelationId" -> s"$correlationId"
-  )
-
   val requiredIfsHeaders: Seq[(String, String)] = List(
     "Environment"   -> "ifs-environment",
     "Authorization" -> s"Bearer ifs-token",
@@ -92,12 +86,6 @@ trait ConnectorSpec extends UnitSpec with Status with MimeTypes with HeaderNames
   val requiredTysIfsHeaders: Seq[(String, String)] = List(
     "Environment"   -> "TYS-IFS-environment",
     "Authorization" -> s"Bearer TYS-IFS-token",
-    "CorrelationId" -> s"$correlationId"
-  )
-
-  val requiredRelease6Headers: Seq[(String, String)] = List(
-    "Environment"   -> "release6-environment",
-    "Authorization" -> s"Bearer release6-token",
     "CorrelationId" -> s"$correlationId"
   )
 
@@ -165,16 +153,6 @@ trait ConnectorSpec extends UnitSpec with Status with MimeTypes with HeaderNames
 
   }
 
-  protected trait DesTest extends ConnectorTest {
-
-    protected lazy val requiredHeaders: Seq[(String, String)] = requiredDesHeaders
-
-    MockedAppConfig.desBaseUrl returns baseUrl
-    MockedAppConfig.desToken returns "des-token"
-    MockedAppConfig.desEnvironment returns "des-environment"
-    MockedAppConfig.desEnvironmentHeaders returns Some(allowedDesHeaders)
-  }
-
   protected trait IfsTest extends ConnectorTest {
 
     protected lazy val requiredHeaders: Seq[(String, String)] = requiredIfsHeaders
@@ -183,16 +161,6 @@ trait ConnectorSpec extends UnitSpec with Status with MimeTypes with HeaderNames
     MockedAppConfig.ifsToken returns "ifs-token"
     MockedAppConfig.ifsEnvironment returns "ifs-environment"
     MockedAppConfig.ifsEnvironmentHeaders returns Some(allowedIfsHeaders)
-  }
-
-  protected trait Release6Test extends ConnectorTest {
-
-    protected lazy val requiredHeaders: Seq[(String, String)] = requiredRelease6Headers
-
-    MockedAppConfig.release6BaseUrl returns baseUrl
-    MockedAppConfig.release6Token returns "release6-token"
-    MockedAppConfig.release6Environment returns "release6-environment"
-    MockedAppConfig.release6EnvironmentHeaders returns Some(allowedIfsHeaders)
   }
 
   protected trait Api1661Test extends ConnectorTest {

@@ -17,25 +17,12 @@
 package mocks
 
 import config.FeatureSwitches
-import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
-import play.api.mvc.Request
 
 trait MockFeatureSwitches extends MockFactory {
 
   implicit val mockFeatureSwitches: FeatureSwitches = mock[FeatureSwitches]
 
-  object MockFeatureSwitches {
-
-    def isPassDeleteIntentEnabled: CallHandler[Boolean] =
-      (() => mockFeatureSwitches.isPassDeleteIntentEnabled).expects()
-
-    def isOpwEnabled: CallHandler[Boolean] =
-      (() => mockFeatureSwitches.isOpwEnabled).expects()
-
-    def isTemporalValidationEnabled(implicit request: Request[_]): CallHandler[Boolean] =
-      (mockFeatureSwitches.isTemporalValidationEnabled(_: Request[_])).expects(request)
-
-  }
+  object MockFeatureSwitches {}
 
 }

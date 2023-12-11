@@ -16,7 +16,7 @@
 
 package api.connectors
 
-import api.connectors.DownstreamUri.{DesUri, IfsUri}
+import api.connectors.DownstreamUri.IfsUri
 import api.mocks.MockHttpClient
 import api.models.outcomes.ResponseWrapper
 import config.AppConfig
@@ -37,91 +37,6 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
 
   implicit val httpReads: HttpReads[DownstreamOutcome[Result]] = mock[HttpReads[DownstreamOutcome[Result]]]
 
-  "for DES" when {
-    "post" must {
-      "posts with the required des headers and returns the result" in new Test with DesTest {
-        MockedHttpClient
-          .post(
-            absoluteUrl,
-            config = dummyDesHeaderCarrierConfig,
-            body,
-            requiredHeaders = requiredHeaders,
-            excludedHeaders = Seq("AnotherHeader" -> "HeaderValue"))
-          .returns(Future.successful(outcome))
-
-        await(connector.post(body, DesUri[Result](url))) shouldBe outcome
-      }
-    }
-
-    "get" must {
-      "get with the required des headers and return the result" in new Test with DesTest {
-        MockedHttpClient
-          .get(
-            absoluteUrl,
-            config = dummyDesHeaderCarrierConfig,
-            parameters = qps,
-            requiredHeaders = requiredDesHeaders,
-            excludedHeaders = Seq("AnotherHeader" -> "HeaderValue"))
-          .returns(Future.successful(outcome))
-
-        await(connector.get(DesUri[Result](url), queryParams = qps)) shouldBe outcome
-      }
-    }
-
-    "delete" must {
-      "delete with the required des headers and return the result" in new Test with DesTest {
-        MockedHttpClient
-          .delete(
-            absoluteUrl,
-            config = dummyDesHeaderCarrierConfig,
-            requiredHeaders = requiredDesHeaders,
-            excludedHeaders = Seq("AnotherHeader" -> "HeaderValue"))
-          .returns(Future.successful(outcome))
-
-        await(connector.delete(DesUri[Result](url))) shouldBe outcome
-      }
-    }
-
-    "put" must {
-      "send the request with the required downstream headers and return result" in new Test with DesTest {
-
-        MockedHttpClient
-          .put(
-            absoluteUrl,
-            config = dummyDesHeaderCarrierConfig,
-            body,
-            requiredHeaders = requiredHeaders,
-            excludedHeaders = Seq("AnotherHeader" -> "HeaderValue"))
-          .returns(Future.successful(outcome))
-
-        private val result: DownstreamOutcome[Result] = await(connector.put(DesUri[Result](url), body))
-        result shouldBe outcome
-      }
-    }
-
-    "content-type header already present and set to be passed through" must {
-      "override (not duplicate) the value" when {
-        testNoDuplicatedContentType("Content-Type" -> "application/user-type")
-        testNoDuplicatedContentType("content-type" -> "application/user-type")
-
-        def testNoDuplicatedContentType(userContentType: (String, String)): Unit =
-          s"for user content type header $userContentType" in new Test with DesTest {
-            MockedHttpClient
-              .put(
-                absoluteUrl,
-                config = dummyDesHeaderCarrierConfig,
-                body,
-                requiredHeaders = requiredDesHeaders ++ Seq("Content-Type" -> "application/json"),
-                excludedHeaders = Seq(userContentType)
-              )
-              .returns(Future.successful(outcome))
-
-            await(connector.put(DesUri[Result](url), body)) shouldBe outcome
-          }
-      }
-    }
-  }
-
   "for IFS" when {
     "post" must {
       "posts with the required ifs headers and returns the result" in new Test with IfsTest {
@@ -139,7 +54,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
     }
 
     "get" must {
-      "get with the required des headers and return the result" in new Test with IfsTest {
+      "get with the required ifs headers and return the result" in new Test with IfsTest {
         MockedHttpClient
           .get(
             absoluteUrl,
@@ -154,7 +69,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
     }
 
     "delete" must {
-      "delete with the required des headers and return the result" in new Test with IfsTest {
+      "delete with the required ifs headers and return the result" in new Test with IfsTest {
         MockedHttpClient
           .delete(
             absoluteUrl,
@@ -168,7 +83,7 @@ class BaseDownstreamConnectorSpec extends ConnectorSpec {
     }
 
     "put" must {
-      "send the request with the required des headers and return result" in new Test with IfsTest {
+      "send the request with the required ifs headers and return result" in new Test with IfsTest {
         MockedHttpClient
           .put(
             absoluteUrl,

@@ -26,29 +26,14 @@ import javax.inject.{Inject, Singleton}
 
 trait AppConfig {
 
-  lazy val desDownstreamConfig: DownstreamConfig =
-    DownstreamConfig(baseUrl = desBaseUrl, env = desEnv, token = desToken, environmentHeaders = desEnvironmentHeaders)
-
   lazy val ifsDownstreamConfig: DownstreamConfig =
     DownstreamConfig(baseUrl = ifsBaseUrl, env = ifsEnv, token = ifsToken, environmentHeaders = ifsEnvironmentHeaders)
 
   lazy val taxYearSpecificIfsDownstreamConfig: DownstreamConfig =
     DownstreamConfig(baseUrl = tysIfsBaseUrl, env = tysIfsEnv, token = tysIfsToken, environmentHeaders = tysIfsEnvironmentHeaders)
 
-  lazy val release6DownstreamConfig: DownstreamConfig =
-    DownstreamConfig(baseUrl = release6BaseUrl, env = release6Env, token = release6Token, environmentHeaders = release6EnvironmentHeaders)
-
   lazy val api1661DownstreamConfig: DownstreamConfig =
     DownstreamConfig(baseUrl = api1661BaseUrl, env = api1661Env, token = api1661Token, environmentHeaders = api1661EnvironmentHeaders)
-
-  // DES Config
-  def desBaseUrl: String
-
-  def desEnv: String
-
-  def desToken: String
-
-  def desEnvironmentHeaders: Option[Seq[String]]
 
   // IFS Config
   def ifsBaseUrl: String
@@ -67,15 +52,6 @@ trait AppConfig {
   def tysIfsToken: String
 
   def tysIfsEnvironmentHeaders: Option[Seq[String]]
-
-  // release6 Config
-  def release6BaseUrl: String
-
-  def release6Env: String
-
-  def release6Token: String
-
-  def release6EnvironmentHeaders: Option[Seq[String]]
 
   // Api1661 Config
   def api1661BaseUrl: String
@@ -99,9 +75,6 @@ trait AppConfig {
 
   def confidenceLevelConfig: ConfidenceLevelConfig
   def minimumPermittedTaxYear: Int
-
-  // NRS Config
-  def mtdNrsProxyBaseUrl: String
 }
 
 @Singleton
@@ -109,38 +82,26 @@ class AppConfigImpl @Inject() (config: ServicesConfig, configuration: Configurat
 
   val mtdIdBaseUrl: String = config.baseUrl("mtd-id-lookup")
 
-  // DES Config
-  val desBaseUrl: String                         = config.baseUrl("des")
-  val desEnv: String                             = config.getString("microservice.services.des.env")
-  val desToken: String                           = config.getString("microservice.services.des.token")
-  val desEnvironmentHeaders: Option[Seq[String]] = configuration.getOptional[Seq[String]]("microservice.services.des.environmentHeaders")
-
   // IFS Config
-  val ifsBaseUrl: String                         = config.baseUrl("ifs")
-  val ifsEnv: String                             = config.getString("microservice.services.ifs.env")
-  val ifsToken: String                           = config.getString("microservice.services.ifs.token")
+  val ifsBaseUrl: String = config.baseUrl("ifs")
+  val ifsEnv: String = config.getString("microservice.services.ifs.env")
+  val ifsToken: String = config.getString("microservice.services.ifs.token")
   val ifsEnvironmentHeaders: Option[Seq[String]] = configuration.getOptional[Seq[String]]("microservice.services.ifs.environmentHeaders")
 
   // Tax Year Specific (TYS) IFS Config
-  val tysIfsBaseUrl: String                         = config.baseUrl("tys-ifs")
-  val tysIfsEnv: String                             = config.getString("microservice.services.tys-ifs.env")
-  val tysIfsToken: String                           = config.getString("microservice.services.tys-ifs.token")
+  val tysIfsBaseUrl: String = config.baseUrl("tys-ifs")
+  val tysIfsEnv: String = config.getString("microservice.services.tys-ifs.env")
+  val tysIfsToken: String = config.getString("microservice.services.tys-ifs.token")
   val tysIfsEnvironmentHeaders: Option[Seq[String]] = configuration.getOptional[Seq[String]]("microservice.services.tys-ifs.environmentHeaders")
 
-  // Release6 Config
-  val release6BaseUrl: String                         = config.baseUrl("release6")
-  val release6Env: String                             = config.getString("microservice.services.release6.env")
-  val release6Token: String                           = config.getString("microservice.services.release6.token")
-  val release6EnvironmentHeaders: Option[Seq[String]] = configuration.getOptional[Seq[String]]("microservice.services.release6.environmentHeaders")
-
   // API1661 Config
-  val api1661BaseUrl: String                         = config.baseUrl("api1661")
-  val api1661Env: String                             = config.getString("microservice.services.api1661.env")
-  val api1661Token: String                           = config.getString("microservice.services.api1661.token")
+  val api1661BaseUrl: String = config.baseUrl("api1661")
+  val api1661Env: String = config.getString("microservice.services.api1661.env")
+  val api1661Token: String = config.getString("microservice.services.api1661.token")
   val api1661EnvironmentHeaders: Option[Seq[String]] = configuration.getOptional[Seq[String]]("microservice.services.api1661.environmentHeaders")
 
   // MTD IF Lookup Config
-  val apiGatewayContext: String                    = config.getString("api.gateway.context")
+  val apiGatewayContext: String = config.getString("api.gateway.context")
   val confidenceLevelConfig: ConfidenceLevelConfig = configuration.get[ConfidenceLevelConfig](s"api.confidence-level-check")
 
   def apiStatus(version: Version): String = config.getString(s"api.$version.status")
@@ -148,9 +109,8 @@ class AppConfigImpl @Inject() (config: ServicesConfig, configuration: Configurat
   def featureSwitches: Configuration = configuration.getOptional[Configuration](s"feature-switch").getOrElse(Configuration.empty)
 
   def endpointsEnabled(version: Version): Boolean = config.getBoolean(s"api.$version.endpoints.enabled")
-  val minimumPermittedTaxYear: Int                = config.getInt("minimumPermittedTaxYear")
-  // NRS Config
-  val mtdNrsProxyBaseUrl: String = config.baseUrl("mtd-api-nrs-proxy")
+
+  val minimumPermittedTaxYear: Int = config.getInt("minimumPermittedTaxYear")
 }
 
 case class ConfidenceLevelConfig(confidenceLevel: ConfidenceLevel, definitionEnabled: Boolean, authValidationEnabled: Boolean)

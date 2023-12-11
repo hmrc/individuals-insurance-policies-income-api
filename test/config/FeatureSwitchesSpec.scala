@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-package api.mocks
+package config
 
-import org.joda.time.DateTime
-import org.scalamock.handlers.CallHandler
-import org.scalamock.scalatest.MockFactory
-import utils.CurrentDateTime
+import support.UnitSpec
 
-import java.time.LocalDate
+class FeatureSwitchesSpec extends UnitSpec {
 
-trait MockCurrentDateTime extends MockFactory {
-
-  val mockCurrentDateTime: CurrentDateTime = mock[CurrentDateTime]
-
-  object MockCurrentDateTime {
-    def getDateTime: CallHandler[DateTime]   = (() => mockCurrentDateTime.getDateTime).expects()
-    def getLocalDate: CallHandler[LocalDate] = (() => mockCurrentDateTime.getLocalDate).expects()
-  }
+  "a feature switch" should {}
 
 }

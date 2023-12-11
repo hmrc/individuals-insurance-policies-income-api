@@ -27,11 +27,6 @@ trait MockAppConfig extends MockFactory {
   val mockAppConfig: AppConfig = mock[AppConfig]
 
   object MockedAppConfig {
-    // DES Config
-    def desBaseUrl: CallHandler[String]                         = (() => mockAppConfig.desBaseUrl).expects()
-    def desToken: CallHandler[String]                           = (() => mockAppConfig.desToken).expects()
-    def desEnvironment: CallHandler[String]                     = (() => mockAppConfig.desEnv).expects()
-    def desEnvironmentHeaders: CallHandler[Option[Seq[String]]] = (() => mockAppConfig.desEnvironmentHeaders).expects()
 
     // IFS Config
     def ifsBaseUrl: CallHandler[String]                         = (() => mockAppConfig.ifsBaseUrl).expects()
@@ -44,12 +39,6 @@ trait MockAppConfig extends MockFactory {
     def tysIfsToken: CallHandler[String]                           = (() => mockAppConfig.tysIfsToken).expects()
     def tysIfsEnvironment: CallHandler[String]                     = (() => mockAppConfig.tysIfsEnv).expects()
     def tysIfsEnvironmentHeaders: CallHandler[Option[Seq[String]]] = (() => mockAppConfig.tysIfsEnvironmentHeaders).expects()
-
-    // Release6 Config
-    def release6BaseUrl: CallHandler[String]                         = (() => mockAppConfig.release6BaseUrl).expects()
-    def release6Token: CallHandler[String]                           = (() => mockAppConfig.release6Token).expects()
-    def release6Environment: CallHandler[String]                     = (() => mockAppConfig.release6Env).expects()
-    def release6EnvironmentHeaders: CallHandler[Option[Seq[String]]] = (() => mockAppConfig.release6EnvironmentHeaders).expects()
 
     // api1661 Config
     def api1661BaseUrl: CallHandler[String]                         = (() => mockAppConfig.api1661BaseUrl).expects()
