@@ -36,7 +36,7 @@ class AmendInsurancePoliciesControllerISpec extends IntegrationBaseSpec {
 
     def taxYear: String
     def downstreamUri: String
-    def uri: String = s"/insurance-policies/$nino/$taxYear"
+    def uri: String = s"/$nino/$taxYear"
 
     val requestBodyJson: JsValue = Json.parse(
       """
@@ -142,17 +142,17 @@ class AmendInsurancePoliciesControllerISpec extends IntegrationBaseSpec {
          |{
          |   "links":[
          |      {
-         |         "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+         |         "href":"/individuals/insurance-policies-income/$nino/$taxYear",
          |         "rel":"create-and-amend-insurance-policies-income",
          |         "method":"PUT"
          |      },
          |      {
-         |         "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+         |         "href":"/individuals/insurance-policies-income/$nino/$taxYear",
          |         "rel":"self",
          |         "method":"GET"
          |      },
          |      {
-         |         "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+         |         "href":"/individuals/insurance-policies-income/$nino/$taxYear",
          |         "rel":"delete-insurance-policies-income",
          |         "method":"DELETE"
          |      }

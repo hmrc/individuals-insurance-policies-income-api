@@ -25,7 +25,7 @@ import config.AppConfig
 trait HateoasLinks {
 
   private def insurancePoliciesUri(appConfig: AppConfig, nino: String, taxYear: String) =
-    s"/${appConfig.apiGatewayContext}/insurance-policies/$nino/$taxYear"
+    s"/${appConfig.apiGatewayContext}/$nino/$taxYear"
 
   // Insurance Policies Income
   def amendInsurancePolicies(appConfig: AppConfig, nino: String, taxYear: String): Link =

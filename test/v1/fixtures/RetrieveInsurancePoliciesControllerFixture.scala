@@ -85,17 +85,17 @@ object RetrieveInsurancePoliciesControllerFixture {
        |{
        |   "links":[
        |      {
-       |         "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+       |         "href":"/individuals/insurance-policies-income/$nino/$taxYear",
        |         "method":"PUT",
        |         "rel":"create-and-amend-insurance-policies-income"
        |      },
        |      {
-       |         "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+       |         "href":"/individuals/insurance-policies-income/$nino/$taxYear",
        |         "method":"GET",
        |         "rel":"self"
        |      },
        |      {
-       |         "href":"/individuals/insurance-policies-income/insurance-policies/$nino/$taxYear",
+       |         "href":"/individuals/insurance-policies-income/$nino/$taxYear",
        |         "method":"DELETE",
        |         "rel":"delete-insurance-policies-income"
        |      }

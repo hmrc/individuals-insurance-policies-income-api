@@ -147,7 +147,7 @@ class RetrieveInsurancePoliciesControllerISpec extends IntegrationBaseSpec {
     val downstreamResponse: JsValue = RetrieveInsurancePoliciesControllerFixture.fullRetrieveInsurancePoliciesResponse
     val mtdResponse: JsValue        = RetrieveInsurancePoliciesControllerFixture.mtdResponseWithHateoas(nino, taxYear)
 
-    def uri: String = s"/insurance-policies/$nino/$taxYear"
+    def uri: String = s"/$nino/$taxYear"
 
     def setupStubs(): StubMapping
 

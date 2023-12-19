@@ -123,7 +123,7 @@ class DeleteInsurancePoliciesControllerISpec extends IntegrationBaseSpec {
   private trait Test {
 
     val nino: String   = "AA123456A"
-    def mtdUri: String = s"/insurance-policies/$nino/$taxYear"
+    def mtdUri: String = s"/$nino/$taxYear"
 
     def taxYear: String
     def downstreamUri: String
