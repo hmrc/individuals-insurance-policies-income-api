@@ -14,8 +14,6 @@ description: |
   | NOT_FOUND                        | Simulates the scenario where no data is found. |
   | STATEFUL                         | Performs a stateful delete.                    |
 
-tags:
-  - Insurance Policies Income
 parameters:
   - $ref: './common/pathParameters.yaml#/components/parameters/nino'
   - $ref: './common/pathParameters.yaml#/components/parameters/taxYearMinimum2021'

@@ -20,8 +20,6 @@ parameters:
   - $ref: './common/headers.yaml#/components/parameters/acceptHeader'
   - $ref: './common/headers.yaml#/components/parameters/authorizationReadScopeHeader'
   - $ref: './common/headers.yaml#/components/parameters/testScenarioHeader'
-tags:
-  - Insurance Policies Income
 
 security:
   - User-Restricted:
