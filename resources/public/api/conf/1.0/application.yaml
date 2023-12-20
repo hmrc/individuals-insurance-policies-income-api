@@ -50,5 +50,5 @@ tags:
     description: Resources relating to an individual's insurance policies
 
 paths:
-  /individuals/income-received/insurance-policies/{nino}/{taxYear}:
+  /individuals/insurance-policies-income/{nino}/{taxYear}:
     $ref: "./insurance.yaml"
