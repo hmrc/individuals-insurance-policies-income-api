@@ -121,7 +121,11 @@ class RequestHandlerSpec
     }
 
     "given a request with a RequestCannotBeFulfilled gov-test-scenario header" when {
-      val gtsHeader = "gov-test-scenario" -> "REQUEST_CANNOT_BE_FULFILLED"
+      val gtsHeaders = List(
+        "gov-test-scenario" -> "REQUEST_CANNOT_BE_FULFILLED",
+        "Gov-Test-Scenario" -> "REQUEST_CANNOT_BE_FULFILLED",
+        "GOV-TEST-SCENARIO" -> "REQUEST_CANNOT_BE_FULFILLED"
+      )
 
       "allowed in config" should {
         "return RuleRequestCannotBeFulfilled error" in {
@@ -132,12 +136,7 @@ class RequestHandlerSpec
 
           MockedAppConfig.allowRequestCannotBeFulfilledHeader(Version3).returns(true).anyNumberOfTimes()
 
-          val userRequest2 = UserRequest[AnyContent](userDetails, FakeRequest().withHeaders(versionHeader, gtsHeader))
-          val result       = requestHandler.handleRequest(InputRaw)(ctx, userRequest2, mockAppConfig, implicitly[ExecutionContext])
-
-          status(result) shouldBe 422
-          header("X-CorrelationId", result) shouldBe Some(generatedCorrelationId)
-          contentAsJson(result) shouldBe Json.parse(
+          val expectedContent = Json.parse(
             """
               |{
               |  "code":"RULE_REQUEST_CANNOT_BE_FULFILLED",
@@ -145,6 +144,16 @@ class RequestHandlerSpec
               |}
               |""".stripMargin
           )
+
+          for (gtsHeader <- gtsHeaders) {
+
+            val userRequest2 = UserRequest[AnyContent](userDetails, FakeRequest().withHeaders(versionHeader, gtsHeader))
+            val result       = requestHandler.handleRequest(InputRaw)(ctx, userRequest2, mockAppConfig, implicitly[ExecutionContext])
+
+            status(result) shouldBe 422
+            header("X-CorrelationId", result) shouldBe Some(generatedCorrelationId)
+            contentAsJson(result) shouldBe expectedContent
+          }
         }
       }
 
