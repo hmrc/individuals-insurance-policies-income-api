@@ -16,9 +16,8 @@
 
 package definition
 
-import config.ConfidenceLevelConfig
+import config.{ConfidenceLevelConfig, MockAppConfig}
 import definition.APIStatus.{ALPHA, BETA}
-import config.MockAppConfig
 import routing.Version1
 import support.UnitSpec
 import uk.gov.hmrc.auth.core.ConfidenceLevel
@@ -48,26 +47,8 @@ class ApiDefinitionFactorySpec extends UnitSpec with MockAppConfig {
         MockedAppConfig.endpointsEnabled(Version1) returns true
         MockedAppConfig.confidenceLevelCheckEnabled.returns(confidenceLevelConfig).anyNumberOfTimes()
 
-        private val readScope                = "read:self-assessment"
-        private val writeScope               = "write:self-assessment"
-        val confidenceLevel: ConfidenceLevel = if (confidenceLevelConfig.authValidationEnabled) ConfidenceLevel.L200 else ConfidenceLevel.L50
-
         apiDefinitionFactory.definition shouldBe
           Definition(
-            scopes = List(
-              Scope(
-                key = readScope,
-                name = "View your Self Assessment information",
-                description = "Allow read access to self assessment data",
-                confidenceLevel
-              ),
-              Scope(
-                key = writeScope,
-                name = "Change your Self Assessment information",
-                description = "Allow write access to self assessment data",
-                confidenceLevel
-              )
-            ),
             api = APIDefinition(
               name = "Individuals Insurance Policies Income (MTD)",
               description = "An API for providing insurance policy income data",
