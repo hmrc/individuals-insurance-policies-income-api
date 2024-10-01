@@ -16,12 +16,13 @@
 
 package auth
 
-import shared.services.DownstreamStub
 import play.api.http.Status.NO_CONTENT
 import play.api.libs.json.JsValue
 import play.api.libs.ws.{WSRequest, WSResponse}
+import shared.auth.AuthSupportingAgentsAllowedISpec
+import shared.services.DownstreamStub
 
-class IndividualInsurancePoliciesAuthSupportingAgentsAllowedISpec extends AuthSupportingAgentsAllowedISpec {
+class InsuranceAuthSupportingAgentsAllowedISpec extends AuthSupportingAgentsAllowedISpec {
 
   val callingApiVersion = "1.0"
 
@@ -36,6 +37,8 @@ class IndividualInsurancePoliciesAuthSupportingAgentsAllowedISpec extends AuthSu
   override val downstreamHttpMethod: DownstreamStub.HTTPMethod = DownstreamStub.DELETE
 
   val maybeDownstreamResponseJson: Option[JsValue] = None
+
+  override val downstreamSuccessStatus: Int = NO_CONTENT
 
   override val expectedMtdSuccessStatus: Int = NO_CONTENT
 

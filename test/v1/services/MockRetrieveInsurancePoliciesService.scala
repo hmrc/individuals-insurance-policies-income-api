@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v1.mocks.services
+package v1.services
 
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
@@ -22,7 +22,6 @@ import shared.controllers.RequestContext
 import shared.services.ServiceOutcome
 import v1.models.request.retrieveInsurancePolicies.RetrieveInsurancePoliciesRequestData
 import v1.models.response.retrieveInsurancePolicies.RetrieveInsurancePoliciesResponse
-import v1.services.RetrieveInsurancePoliciesService
 
 import scala.concurrent.{ExecutionContext, Future}
 

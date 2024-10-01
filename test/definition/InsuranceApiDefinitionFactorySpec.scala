@@ -16,23 +16,30 @@
 
 package definition
 
-import config.MockAppConfig
-import definition.APIStatus.{ALPHA, BETA}
-import routing.Version1
-import support.UnitSpec
+import cats.implicits.catsSyntaxValidatedId
+import shared.config.Deprecation.NotDeprecated
+import shared.config.MockSharedAppConfig
+import shared.definition.APIStatus.BETA
+import shared.definition.{APIDefinition, APIVersion, Definition}
+import shared.mocks.MockHttpClient
+import shared.routing.Version1
+import shared.utils.UnitSpec
 
-class InsuranceDefinitionFactorySpec extends UnitSpec with MockAppConfig {
+class InsuranceApiDefinitionFactorySpec extends UnitSpec with MockSharedAppConfig {
 
-  class Test extends MockAppConfig {
-    val apiDefinitionFactory = new InsuranceDefinitionFactory(mockAppConfig)
-    MockedAppConfig.apiGatewayContext returns "individuals/person"
+  class Test extends MockHttpClient with MockSharedAppConfig {
+    MockedSharedAppConfig.apiGatewayContext returns "individuals/person"
+    val apiDefinitionFactory = new InsuranceApiDefinitionFactory(mockSharedAppConfig)
   }
 
   "definition" when {
     "called" should {
       "return a valid Definition case class" in new Test {
-        MockedAppConfig.apiStatus(Version1) returns "BETA"
-        MockedAppConfig.endpointsEnabled(Version1) returns true
+        List(Version1).foreach { version =>
+          MockedSharedAppConfig.apiStatus(version) returns "BETA"
+          MockedSharedAppConfig.endpointsEnabled(version).returns(true).anyNumberOfTimes()
+          MockedSharedAppConfig.deprecationFor(version).returns(NotDeprecated.valid).anyNumberOfTimes()
+        }
 
         apiDefinitionFactory.definition shouldBe
           Definition(
@@ -51,22 +58,6 @@ class InsuranceDefinitionFactorySpec extends UnitSpec with MockAppConfig {
               requiresTrust = None
             )
           )
-      }
-    }
-  }
-
-  "buildAPIStatus" when {
-    "the 'apiStatus' parameter is present and valid" should {
-      "return the correct status" in new Test {
-        MockedAppConfig.apiStatus(Version1) returns "BETA"
-        apiDefinitionFactory.buildAPIStatus(Version1) shouldBe BETA
-      }
-    }
-
-    "the 'apiStatus' parameter is present and invalid" should {
-      "default to alpha" in new Test {
-        MockedAppConfig.apiStatus(Version1) returns "ALPHA"
-        apiDefinitionFactory.buildAPIStatus(Version1) shouldBe ALPHA
       }
     }
   }

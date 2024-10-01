@@ -17,16 +17,16 @@
 package config
 
 import com.google.inject.AbstractModule
-import definition.EmploymentsApiDefinitionFactory
-import routing.EmploymentsVersionRoutingMap
+import definition.InsuranceApiDefinitionFactory
+import routing.InsuranceVersionRoutingMap
 import shared.definition.ApiDefinitionFactory
 import shared.routing.VersionRoutingMap
 
-class InsurancePoliciesPlayModule extends AbstractModule {
+class InsurancePlayModule extends AbstractModule {
 
   override def configure(): Unit = {
-    bind(classOf[ApiDefinitionFactory]).to(classOf[InsurancePoliciesApiDefinitionFactory]).asEagerSingleton()
-    bind(classOf[VersionRoutingMap]).to(classOf[InsurancePoliciesVersionRoutingMap]).asEagerSingleton()
+    bind(classOf[ApiDefinitionFactory]).to(classOf[InsuranceApiDefinitionFactory]).asEagerSingleton()
+    bind(classOf[VersionRoutingMap]).to(classOf[InsuranceVersionRoutingMap]).asEagerSingleton()
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,18 @@
 
 package config
 
-import com.google.inject.AbstractModule
+import org.scalamock.handlers.CallHandler
+import org.scalamock.scalatest.MockFactory
 
-class DIModule extends AbstractModule {
+trait MockInsuranceFeatureSwitches extends MockFactory {
 
-  override def configure(): Unit = {
-    bind(classOf[AppConfig]).to(classOf[AppConfigImpl]).asEagerSingleton()
+  implicit val mockFeatureSwitches: InsuranceFeatureSwitches = mock[InsuranceFeatureSwitches]
+
+  object MockedInsuranceFeatureSwitches {
+
+    def supportingAgentsAccessControlEnabled: CallHandler[Boolean] =
+      (() => mockFeatureSwitches.supportingAgentsAccessControlEnabled).expects()
+
   }
 
 }

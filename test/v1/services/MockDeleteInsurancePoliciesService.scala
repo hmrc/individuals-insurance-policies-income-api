@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package v1.mocks.services
+package v1.services
 
-import shared.controllers.RequestContext
-import shared.services.ServiceOutcome
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
+import shared.controllers.RequestContext
+import shared.services.ServiceOutcome
 import v1.models.request.deleteInsurancePolicies.DeleteInsurancePoliciesRequestData
-import v1.services.DeleteInsurancePoliciesService
 
 import scala.concurrent.{ExecutionContext, Future}
 

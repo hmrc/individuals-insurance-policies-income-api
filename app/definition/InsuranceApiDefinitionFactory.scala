@@ -16,14 +16,14 @@
 
 package definition
 
-import config.AppConfig
-import play.api.Logging
-import routing.{Version, Version1}
+import shared.config.SharedAppConfig
+import shared.definition._
+import shared.routing.Version1
 
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class InsuranceDefinitionFactory @Inject()(appConfig: AppConfig) extends Logging {
+class InsuranceApiDefinitionFactory @Inject()(protected val appConfig: SharedAppConfig) extends ApiDefinitionFactory {
 
   lazy val definition: Definition =
     Definition(
@@ -31,8 +31,8 @@ class InsuranceDefinitionFactory @Inject()(appConfig: AppConfig) extends Logging
         name = "Individuals Insurance Policies Income (MTD)",
         description = "An API for providing insurance policy income data",
         context = appConfig.apiGatewayContext,
-        categories = Seq("INCOME_TAX_MTD"),
-        versions = Seq(
+        categories = List(mtdCategory),
+        versions = List(
           APIVersion(
             version = Version1,
             status = buildAPIStatus(Version1),
@@ -42,14 +42,5 @@ class InsuranceDefinitionFactory @Inject()(appConfig: AppConfig) extends Logging
         requiresTrust = None
       )
     )
-
-  private[definition] def buildAPIStatus(version: Version): APIStatus = {
-    APIStatus.parser
-      .lift(appConfig.apiStatus(version))
-      .getOrElse {
-        logger.error(s"[ApiDefinition][buildApiStatus] no API Status found in config.  Reverting to Alpha")
-        APIStatus.ALPHA
-      }
-  }
 
 }

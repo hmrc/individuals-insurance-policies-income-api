@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package v1.mocks.connectors
+package v1.connectors
 
-import shared.connectors.DownstreamOutcome
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
+import shared.connectors.DownstreamOutcome
 import uk.gov.hmrc.http.HeaderCarrier
-import v1.connectors.DeleteInsurancePoliciesConnector
 import v1.models.request.deleteInsurancePolicies.DeleteInsurancePoliciesRequestData
 
 import scala.concurrent.{ExecutionContext, Future}
