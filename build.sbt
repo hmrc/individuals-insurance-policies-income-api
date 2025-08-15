@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import sbt.*
 import uk.gov.hmrc.DefaultBuildSettings
 
 ThisBuild / scalaVersion := "3.5.2"
@@ -23,18 +22,15 @@ ThisBuild / scalacOptions ++= Seq(
   "-Werror",
   "-Wconf:msg=Flag.*repeatedly:s"
 )
+ThisBuild / scalafmtOnCompile := true
 
 val appName = "individuals-insurance-policies-income-api"
-
-lazy val ItTest = config("it") extend Test
 
 lazy val microservice = Project(appName, file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin) // Required to prevent https://github.com/scalatest/scalatest/issues/1427
   .settings(
     libraryDependencies ++= AppDependencies.compile ++ AppDependencies.test,
-    retrieveManaged                 := true,
-    scalafmtOnCompile := true,
     scalacOptions ++= List(
       "-feature",
       "-Wconf:src=routes/.*:s"
@@ -44,18 +40,15 @@ lazy val microservice = Project(appName, file("."))
     Compile / unmanagedResourceDirectories += baseDirectory.value / "resources",
     Compile / unmanagedClasspath += baseDirectory.value / "resources"
   )
-  .settings(CodeCoverageSettings.settings: _*)
+  .settings(CodeCoverageSettings.settings)
   .settings(PlayKeys.playDefaultPort := 7804)
 
 lazy val it = project
   .enablePlugins(PlayScala)
   .dependsOn(microservice % "test->test")
-  .settings(DefaultBuildSettings.itSettings() ++ ScalafmtPlugin.scalafmtConfigSettings)
+  .settings(DefaultBuildSettings.itSettings())
   .settings(
     Test / fork                       := true,
     Test / javaOptions += "-Dlogger.resource=logback-test.xml",
   )
   .settings(libraryDependencies ++= AppDependencies.itDependencies)
-  .settings(
-    scalacOptions ++= Seq("-Xfatal-warnings")
-  )
