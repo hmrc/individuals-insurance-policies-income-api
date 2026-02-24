@@ -25,12 +25,10 @@ import javax.inject.{Inject, Singleton}
 @Singleton case class InsuranceVersionRoutingMap @Inject() (
     appConfig: SharedAppConfig,
     defaultRouter: Router,
-    v1Router: v1.Routes,
     v2Router: v2.Routes
 ) extends VersionRoutingMap {
 
   val map: Map[Version, Router] = Map(
-    Version1 -> v1Router,
     Version2 -> v2Router
   )
 
