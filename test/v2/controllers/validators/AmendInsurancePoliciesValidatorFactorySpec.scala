@@ -135,6 +135,58 @@ class AmendInsurancePoliciesValidatorFactorySpec extends UnitSpec with MockShare
 
   private val emptyRequestBodyJson: JsValue = Json.parse("""{}""")
 
+  private val emptyLifeInsuranceArrayRequestBodyJson: JsValue = Json.parse(
+    """
+      |{
+      |   "lifeInsurance":[]
+      |}
+      """.stripMargin
+  )
+
+  private val emptyCapitalRedemptionArrayJson: JsValue = Json.parse(
+    """
+      |{
+      |   "capitalRedemption":[]
+      |}
+      """.stripMargin
+  )
+
+  private val emptyLifeAnnuityArrayJson: JsValue = Json.parse(
+    """
+      |{
+      |   "lifeAnnuity":[]
+      |}
+      """.stripMargin
+  )
+
+  private val emptyVoidedIsaArrayJson: JsValue = Json.parse(
+    """
+      |{
+      |   "voidedIsa":[]
+      |}
+      """.stripMargin
+  )
+
+  private val emptyForeignArrayJson: JsValue = Json.parse(
+    """
+      |{
+      |   "foreign":[]
+      |}
+      """.stripMargin
+  )
+
+  private val emptyArraysRequestBodyJson: JsValue = Json.parse(
+    """
+      |{
+      |   "lifeInsurance":[],
+      |   "capitalRedemption":[],
+      |   "lifeAnnuity":[],
+      |   "voidedIsa":[],
+      |   "foreign":[]
+      |}
+    """.stripMargin
+  )
+
   private val nonsenseRequestBodyJson: JsValue = Json.parse("""{"field": "value"}""")
 
   private val nonValidRequestBodyJson: JsValue = Json.parse(
@@ -482,6 +534,94 @@ class AmendInsurancePoliciesValidatorFactorySpec extends UnitSpec with MockShare
 
         result shouldBe Left(
           ErrorWrapper(correlationId, RuleIncorrectOrEmptyBodyError)
+        )
+      }
+
+      "a non-empty body containing only an empty lifeInsurance array is submitted" in {
+        val result: Either[ErrorWrapper, AmendInsurancePoliciesRequestData] =
+          validator(validNino, validTaxYear, emptyLifeInsuranceArrayRequestBodyJson).validateAndWrapResult()
+
+        result shouldBe Left(
+          ErrorWrapper(
+            correlationId,
+            RuleIncorrectOrEmptyBodyError.withPaths(
+              Seq(
+                "/lifeInsurance"
+              )))
+        )
+      }
+
+      "a non-empty body containing only an empty capitalRedemption array is submitted" in {
+        val result: Either[ErrorWrapper, AmendInsurancePoliciesRequestData] =
+          validator(validNino, validTaxYear, emptyCapitalRedemptionArrayJson).validateAndWrapResult()
+
+        result shouldBe Left(
+          ErrorWrapper(
+            correlationId,
+            RuleIncorrectOrEmptyBodyError.withPaths(
+              Seq(
+                "/capitalRedemption"
+              )))
+        )
+      }
+
+      "a non-empty body containing only an empty lifeAnnuity array is submitted" in {
+        val result: Either[ErrorWrapper, AmendInsurancePoliciesRequestData] =
+          validator(validNino, validTaxYear, emptyLifeAnnuityArrayJson).validateAndWrapResult()
+
+        result shouldBe Left(
+          ErrorWrapper(
+            correlationId,
+            RuleIncorrectOrEmptyBodyError.withPaths(
+              Seq(
+                "/lifeAnnuity"
+              )))
+        )
+      }
+
+      "a non-empty body containing only an empty voidedIsa array is submitted" in {
+        val result: Either[ErrorWrapper, AmendInsurancePoliciesRequestData] =
+          validator(validNino, validTaxYear, emptyVoidedIsaArrayJson).validateAndWrapResult()
+
+        result shouldBe Left(
+          ErrorWrapper(
+            correlationId,
+            RuleIncorrectOrEmptyBodyError.withPaths(
+              Seq(
+                "/voidedIsa"
+              )))
+        )
+      }
+
+      "a non-empty body containing only an empty foreign array is submitted" in {
+        val result: Either[ErrorWrapper, AmendInsurancePoliciesRequestData] =
+          validator(validNino, validTaxYear, emptyForeignArrayJson).validateAndWrapResult()
+
+        result shouldBe Left(
+          ErrorWrapper(
+            correlationId,
+            RuleIncorrectOrEmptyBodyError.withPaths(
+              Seq(
+                "/foreign"
+              )))
+        )
+      }
+
+      "a non-empty body containing only empty arrays is submitted" in {
+        val result: Either[ErrorWrapper, AmendInsurancePoliciesRequestData] =
+          validator(validNino, validTaxYear, emptyArraysRequestBodyJson).validateAndWrapResult()
+
+        result shouldBe Left(
+          ErrorWrapper(
+            correlationId,
+            RuleIncorrectOrEmptyBodyError.withPaths(
+              Seq(
+                "/lifeInsurance",
+                "/capitalRedemption",
+                "/lifeAnnuity",
+                "/voidedIsa",
+                "/foreign"
+              )))
         )
       }
 
