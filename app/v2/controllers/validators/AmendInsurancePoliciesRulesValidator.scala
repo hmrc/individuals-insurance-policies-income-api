@@ -100,23 +100,9 @@ object AmendInsurancePoliciesRulesValidator extends RulesValidator[AmendInsuranc
 
     def path(suffix: String) = s"/voidedIsa/$arrayIndex/$suffix"
 
-//    val validatedCustomerRef = customerReference match {
-//      case Some(value) =>
-//        val resolveCustomerRef = new ResolveStringPattern(regex, CustomerRefFormatError.withPath(s"/voidedIsa/$arrayIndex/customerReference"))
-//        resolveCustomerRef(value)
-//      case None => valid
-//    }
-
     val validatedCustomerRef = resolveStringByPattern(voidedIsa.customerReference, CustomerRefFormatError.withPath(path("customerReference")))
 
-//    val validatedEvent = event match {
-//      case Some(value) =>
-//        val resolveEvent = new ResolveStringPattern(regex, EventFormatError.withPath(s"/voidedIsa/$arrayIndex/event"))
-//        resolveEvent(value)
-//      case None => valid
-//    }
-
-    val validatedEvent = resolveStringByPattern(voidedIsa.event, CustomerRefFormatError.withPath(path("event")))
+    val validatedEvent = resolveStringByPattern(voidedIsa.event, EventFormatError.withPath(path("event")))
 
     val validatedMandatoryDecimalNumber = resolveNonNegativeDecimalNumber(gainAmount, s"/voidedIsa/$arrayIndex/gainAmount")
 
@@ -137,13 +123,6 @@ object AmendInsurancePoliciesRulesValidator extends RulesValidator[AmendInsuranc
     import foreign._
 
     def path(suffix: String) = s"/foreign/$arrayIndex/$suffix"
-
-//    val validatedCustomerRef = customerReference match {
-//      case Some(value) =>
-//        val resolveCustomerRef = new ResolveStringPattern(regex, CustomerRefFormatError.withPath(s"/foreign/$arrayIndex/customerReference"))
-//        resolveCustomerRef(value)
-//      case None => valid
-//    }
 
     val validatedMandatoryDecimalNumber = resolveNonNegativeDecimalNumber(gainAmount, s"/foreign/$arrayIndex/gainAmount")
 
