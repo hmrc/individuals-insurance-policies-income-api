@@ -27,10 +27,11 @@ class ApiVersionSpec extends UnitSpec {
       |{
       |"version": "1.0",
       |"status": "BETA",
+      |"access": "PUBLIC",
       |"endpointsEnabled": true
       |}""".stripMargin)
 
-  val model: APIVersion = APIVersion(Version1, BETA, true)
+  val model: APIVersion = APIVersion(Version1, BETA, APIAccessType.PUBLIC, true)
 
   "reads" should {
     "read JSON to a model" in {

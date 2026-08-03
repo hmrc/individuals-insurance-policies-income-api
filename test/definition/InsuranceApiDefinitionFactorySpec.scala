@@ -18,6 +18,7 @@ package definition
 
 import api.config.Deprecation.NotDeprecated
 import api.config.MockAppConfig
+import api.definition.APIAccessType
 import api.definition.APIStatus.BETA
 import api.definition.{APIDefinition, APIVersion, Definition}
 import api.mocks.MockHttpClient
@@ -38,6 +39,7 @@ class InsuranceApiDefinitionFactorySpec extends UnitSpec with MockAppConfig {
         List(Version2).foreach { version =>
           MockedAppConfig.apiStatus(version) returns "BETA"
           MockedAppConfig.endpointsEnabled(version).returns(true).anyNumberOfTimes()
+          MockedAppConfig.controlledAccessEnabled returns false
           MockedAppConfig.deprecationFor(version).returns(NotDeprecated.valid).anyNumberOfTimes()
         }
 
@@ -52,12 +54,39 @@ class InsuranceApiDefinitionFactorySpec extends UnitSpec with MockAppConfig {
                 APIVersion(
                   Version2,
                   status = BETA,
+                  access = APIAccessType.PUBLIC,
                   endpointsEnabled = true
                 )
               ),
               requiresTrust = None
             )
           )
+      }
+    }
+  }
+
+  "set the access level" when {
+    "the controlled access flag is enabled" should {
+      "to be CONTROLLED" in new Test {
+        MockedAppConfig.endpointsEnabled(Version2)
+        MockedAppConfig.apiStatus(Version2) returns "BETA"
+        MockedAppConfig.deprecationFor(Version2).returns(NotDeprecated.valid).anyNumberOfTimes()
+
+        MockedAppConfig.controlledAccessEnabled returns true
+
+        apiDefinitionFactory.definition.api.versions.head.access shouldBe APIAccessType.CONTROLLED
+      }
+    }
+
+    "the controlled access flag is disabled" should {
+      "return PUBLIC" in new Test {
+        MockedAppConfig.endpointsEnabled(Version2)
+        MockedAppConfig.apiStatus(Version2) returns "BETA"
+        MockedAppConfig.deprecationFor(Version2).returns(NotDeprecated.valid).anyNumberOfTimes()
+
+        MockedAppConfig.controlledAccessEnabled returns false
+
+        apiDefinitionFactory.definition.api.versions.head.access shouldBe APIAccessType.PUBLIC
       }
     }
   }

@@ -26,7 +26,7 @@ Start the service manager profile:
 sm2 -start MTDFB_INDIVIDUALS_INSURANCE_POLICIES_INCOME
 ```
 
-## Run tests
+## Running Tests
 
 Run unit tests: `sbt test`
 
