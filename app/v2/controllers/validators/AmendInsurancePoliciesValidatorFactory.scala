@@ -17,7 +17,7 @@
 package v2.controllers.validators
 
 import api.controllers.validators.Validator
-import api.controllers.validators.resolvers.{ResolveNino, ResolveNonEmptyJsonObject, ResolveTaxYearMinimum}
+import api.controllers.validators.resolvers.{ResolveDetailedTaxYear, ResolveNino, ResolveNonEmptyJsonObject}
 import api.models.errors.MtdError
 import cats.data.Validated
 import cats.implicits.*
@@ -32,8 +32,12 @@ import javax.inject.{Inject, Singleton}
 class AmendInsurancePoliciesValidatorFactory @Inject() (appConfig: InsuranceAppConfig) {
 
   private lazy val minimumTaxYear = appConfig.minimumPermittedTaxYear
-  private lazy val resolveTaxYear = ResolveTaxYearMinimum(minimumTaxYear)
-  private val resolveJson         = new ResolveNonEmptyJsonObject[AmendInsurancePoliciesRequestBody]()
+
+  private lazy val resolveTaxYear = ResolveDetailedTaxYear(
+    minimumTaxYear = minimumTaxYear
+  )
+
+  private val resolveJson = new ResolveNonEmptyJsonObject[AmendInsurancePoliciesRequestBody]()
 
   def validator(nino: String, taxYear: String, body: JsValue): Validator[AmendInsurancePoliciesRequestData] =
     new Validator[AmendInsurancePoliciesRequestData] {
