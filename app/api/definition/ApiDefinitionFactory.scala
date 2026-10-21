@@ -20,7 +20,10 @@ import api.config.AppConfig
 import api.routing.Version
 import api.utils.Logging
 import cats.data.Validated.Invalid
+import com.google.inject.ImplementedBy
+import definition.InsuranceApiDefinitionFactory
 
+@ImplementedBy(classOf[InsuranceApiDefinitionFactory])
 trait ApiDefinitionFactory extends Logging {
 
   protected val mtdCategory = "INCOME_TAX_MTD"

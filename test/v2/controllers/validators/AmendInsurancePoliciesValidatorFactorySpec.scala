@@ -20,7 +20,6 @@ import api.config.MockAppConfig
 import api.models.domain.{Nino, TaxYear}
 import api.models.errors.*
 import api.utils.UnitSpec
-import common.errors.{CustomerRefFormatError, EventFormatError}
 import config.MockInsuranceAppConfig
 import play.api.libs.json.{JsValue, Json}
 import v2.models.request.amendInsurancePolicies.{AmendInsurancePoliciesRequestBody, AmendInsurancePoliciesRequestData}

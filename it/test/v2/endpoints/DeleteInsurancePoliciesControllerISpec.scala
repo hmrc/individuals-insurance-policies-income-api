@@ -18,7 +18,6 @@ package v2.endpoints
 
 import api.models.errors.*
 import api.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
-import common.errors.RuleOutsideAmendmentWindowError
 import common.support.InsuranceBaseISpec
 import play.api.http.HeaderNames.ACCEPT
 import play.api.http.Status.*

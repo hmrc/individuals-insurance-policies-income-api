@@ -18,10 +18,9 @@ package v2.controllers.validators
 
 import api.controllers.validators.RulesValidator
 import api.controllers.validators.resolvers.{ResolveInteger, ResolveParsedNumber, ResolveStringPattern}
-import api.models.errors.MtdError
+import api.models.errors.{CustomerRefFormatError, EventFormatError, MtdError}
 import cats.data.Validated
 import cats.implicits.*
-import common.errors.{CustomerRefFormatError, EventFormatError}
 import v2.models.request.amendInsurancePolicies.{
   AmendCommonInsurancePoliciesItem,
   AmendForeignPoliciesItem,

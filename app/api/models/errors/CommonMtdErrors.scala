@@ -52,6 +52,13 @@ object InvalidBodyTypeError extends MtdError("INVALID_BODY_TYPE", "Expecting tex
 object InvalidTaxYearParameterError
     extends MtdError(code = "INVALID_TAX_YEAR_PARAMETER", message = "A tax year before 2023-24 was supplied", BAD_REQUEST)
 
+//Insurance API specific errors
+object CustomerRefFormatError extends MtdError("FORMAT_CUSTOMER_REF", "The provided customer reference is invalid", BAD_REQUEST)
+
+object EventFormatError extends MtdError("FORMAT_EVENT", "The provided policy event is invalid", BAD_REQUEST)
+
+object RuleOutsideAmendmentWindowError extends MtdError("RULE_OUTSIDE_AMENDMENT_WINDOW", "You are outside the amendment window", BAD_REQUEST)
+
 //Authentication/Authorisation errors
 
 /** Authentication OK but not allowed access to the requested resource
