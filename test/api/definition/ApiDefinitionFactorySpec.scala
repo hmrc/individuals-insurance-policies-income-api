@@ -17,7 +17,7 @@
 package api.definition
 
 import api.config.Deprecation.NotDeprecated
-import api.config.{AppConfig, MockAppConfig}
+import api.config.MockAppConfig
 import api.definition.APIStatus.{ALPHA, BETA}
 import api.mocks.MockHttpClient
 import api.routing.*
@@ -27,6 +27,39 @@ import cats.implicits.catsSyntaxValidatedId
 import scala.language.reflectiveCalls
 
 class ApiDefinitionFactorySpec extends UnitSpec {
+
+  "definition" when {
+    "called" should {
+      "return a valid Definition case class" in new Test {
+        List(Version2).foreach { version =>
+          MockedAppConfig.apiStatus(version) returns "BETA"
+          MockedAppConfig.endpointsEnabled(version) returns true
+          MockedAppConfig.controlledAccessEnabled returns false
+          MockedAppConfig.deprecationFor(version) returns NotDeprecated.valid
+          MockedAppConfig.apiGatewayContext returns "individuals/insurance-policies-income"
+        }
+
+        apiDefinitionFactory.definition shouldBe
+          Definition(
+            api = APIDefinition(
+              name = "Individuals Insurance Policies Income (MTD)",
+              description = "An API for providing insurance policy income data",
+              context = "individuals/insurance-policies-income",
+              categories = List("INCOME_TAX_MTD"),
+              versions = List(
+                APIVersion(
+                  version = Version2,
+                  status = BETA,
+                  access = APIAccessType.PUBLIC,
+                  endpointsEnabled = true
+                )
+              ),
+              requiresTrust = None
+            )
+          )
+      }
+    }
+  }
 
   "buildAPIStatus" when {
     "the 'apiStatus' parameter is present and valid" should {
@@ -70,23 +103,8 @@ class ApiDefinitionFactorySpec extends UnitSpec {
   }
 
   trait Test extends UnitSpec with MockHttpClient with MockAppConfig {
-    MockedAppConfig.apiGatewayContext returns "individuals/self-assessment/adjustable-summary"
 
-    val apiDefinitionFactory: ApiDefinitionFactory = new ApiDefinitionFactory {
-      protected val appConfig: AppConfig = mockAppConfig
-
-      lazy val definition: Definition = Definition(
-        APIDefinition(
-          "test API definition",
-          "description",
-          "context",
-          List("category"),
-          List(APIVersion(Version1, APIStatus.BETA, APIAccessType.PUBLIC, endpointsEnabled = true)),
-          None
-        )
-      )
-
-    }
+    protected val apiDefinitionFactory: ApiDefinitionFactory = new ApiDefinitionFactory(mockAppConfig)
 
     def checkBuildApiStatus(version: Version): APIStatus = apiDefinitionFactory.buildAPIStatus(version)
 
