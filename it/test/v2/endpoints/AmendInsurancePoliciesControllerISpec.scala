@@ -20,7 +20,6 @@ import api.models.errors
 import api.models.errors.*
 import api.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
-import common.errors.{CustomerRefFormatError, EventFormatError, RuleOutsideAmendmentWindowError}
 import common.support.InsuranceBaseISpec
 import play.api.http.HeaderNames.ACCEPT
 import play.api.http.Status.*

@@ -49,8 +49,12 @@ object InvalidHttpMethodError extends MtdError("INVALID_HTTP_METHOD", "Invalid H
 
 object InvalidBodyTypeError extends MtdError("INVALID_BODY_TYPE", "Expecting text/json or application/json body", UNSUPPORTED_MEDIA_TYPE)
 
-object InvalidTaxYearParameterError
-    extends MtdError(code = "INVALID_TAX_YEAR_PARAMETER", message = "A tax year before 2023-24 was supplied", BAD_REQUEST)
+//Insurance API specific errors
+object CustomerRefFormatError extends MtdError("FORMAT_CUSTOMER_REF", "The provided customer reference is invalid", BAD_REQUEST)
+
+object EventFormatError extends MtdError("FORMAT_EVENT", "The provided policy event is invalid", BAD_REQUEST)
+
+object RuleOutsideAmendmentWindowError extends MtdError("RULE_OUTSIDE_AMENDMENT_WINDOW", "You are outside the amendment window", BAD_REQUEST)
 
 //Authentication/Authorisation errors
 
