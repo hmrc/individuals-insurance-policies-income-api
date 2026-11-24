@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.endpoints
+package v2.retrieveInsurancePolicies
 
 import api.models.errors.*
 import api.services.{AuditStub, AuthStub, DownstreamStub, MtdIdLookupStub}
@@ -26,7 +26,6 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
 import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesControllerFixture.fullRetrieveInsurancePoliciesResponse
-import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesControllerFixture
 
 class RetrieveInsurancePoliciesControllerISpec extends InsuranceBaseISpec {
 

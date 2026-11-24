@@ -26,7 +26,6 @@ import api.services.MockAuditService
 import play.api.Configuration
 import play.api.libs.json.JsValue
 import play.api.mvc.Result
-import v2.deleteInsurancePolicies.mocks.{MockDeleteInsurancePoliciesService, MockDeleteInsurancePoliciesValidatorFactory}
 import v2.deleteInsurancePolicies.model.request.DeleteInsurancePoliciesRequestData
 
 import scala.concurrent.ExecutionContext.Implicits.global

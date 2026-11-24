@@ -22,7 +22,6 @@ import api.models.errors.*
 import api.models.outcomes.ResponseWrapper
 import api.services.ServiceSpec
 import v2.retrieveInsurancePolicies.model.response.RetrieveInsurancePoliciesResponse
-import v2.retrieveInsurancePolicies.mocks.MockRetrieveInsurancePoliciesConnector
 import v2.retrieveInsurancePolicies.model.request.RetrieveInsurancePoliciesRequestData
 
 import scala.concurrent.Future

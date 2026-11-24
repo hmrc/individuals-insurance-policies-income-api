@@ -44,7 +44,7 @@ class AmendInsurancePoliciesController @Inject() (
   implicit val endpointLogContext: EndpointLogContext =
     EndpointLogContext(
       controllerName = "AmendInsurancePoliciesController",
-      endpointName = "v2/amendInsurancePolicies"
+      endpointName = "amendInsurancePolicies"
     )
 
   def amendInsurancePolicies(nino: String, taxYear: String): Action[JsValue] =

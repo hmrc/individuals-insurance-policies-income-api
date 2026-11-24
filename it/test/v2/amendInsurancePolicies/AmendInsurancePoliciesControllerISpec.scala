@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.endpoints
+package v2.amendInsurancePolicies
 
 import api.models.errors
 import api.models.errors.*

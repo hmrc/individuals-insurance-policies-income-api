@@ -21,7 +21,6 @@ import api.models.domain.{Nino, TaxYear}
 import api.models.errors.*
 import api.models.outcomes.ResponseWrapper
 import api.services.ServiceSpec
-import v2.amendInsurancePolicies.mocks.MockAmendInsurancePoliciesConnector
 import v2.amendInsurancePolicies.model.request.*
 
 import scala.concurrent.Future
@@ -101,7 +100,7 @@ class AmendInsurancePoliciesServiceSpec extends ServiceSpec {
   }
 
   "AmendInsurancePoliciesService" when {
-    "v2/amendInsurancePolicies" must {
+    "amendInsurancePolicies" must {
       "return correct result for a success" in new Test {
         val outcome = Right(ResponseWrapper(correlationId, ()))
 

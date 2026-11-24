@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.retrieveInsurancePolicies.mocks
+package v2.retrieveInsurancePolicies
 
 import api.controllers.validators.Validator
 import api.models.errors.MtdError
@@ -23,7 +23,6 @@ import cats.data.Validated.{Invalid, Valid}
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.TestSuite
-import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesValidatorFactory
 import v2.retrieveInsurancePolicies.model.request.RetrieveInsurancePoliciesRequestData
 
 trait MockRetrieveInsurancePoliciesValidatorFactory extends TestSuite with MockFactory {

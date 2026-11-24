@@ -14,28 +14,33 @@
  * limitations under the License.
  */
 
-package v2.retrieveInsurancePolicies.mocks
+package v2.deleteInsurancePolicies
 
 import api.connectors.DownstreamOutcome
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.TestSuite
 import uk.gov.hmrc.http.HeaderCarrier
-import v2.retrieveInsurancePolicies.model.response.RetrieveInsurancePoliciesResponse
-import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesConnector
-import v2.retrieveInsurancePolicies.model.request.RetrieveInsurancePoliciesRequestData
+import v2.deleteInsurancePolicies.model.request.DeleteInsurancePoliciesRequestData
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockRetrieveInsurancePoliciesConnector extends TestSuite with MockFactory {
+trait MockDeleteInsurancePoliciesConnector extends TestSuite with MockFactory {
 
-  val mockRetrieveInsurancePoliciesConnector: RetrieveInsurancePoliciesConnector = mock[RetrieveInsurancePoliciesConnector]
+  val mockDeleteInsurancePoliciesConnector: DeleteInsurancePoliciesConnector =
+    mock[DeleteInsurancePoliciesConnector]
 
-  object MockRetrieveInsurancePoliciesConnector {
+  object MockDeleteInsurancePoliciesConnector {
 
-    def retrieve(requestData: RetrieveInsurancePoliciesRequestData): CallHandler[Future[DownstreamOutcome[RetrieveInsurancePoliciesResponse]]] = {
-      (mockRetrieveInsurancePoliciesConnector
-        .retrieveInsurancePolicies(_: RetrieveInsurancePoliciesRequestData)(_: HeaderCarrier, _: ExecutionContext, _: String))
+    def deleteInsurancePoliciesConnector(requestData: DeleteInsurancePoliciesRequestData): CallHandler[Future[DownstreamOutcome[Unit]]] = {
+      (
+        mockDeleteInsurancePoliciesConnector
+          .deleteInsurancePolicies(_: DeleteInsurancePoliciesRequestData)(
+            _: HeaderCarrier,
+            _: ExecutionContext,
+            _: String
+          )
+        )
         .expects(requestData, *, *, *)
     }
 

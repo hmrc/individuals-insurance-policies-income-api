@@ -25,7 +25,6 @@ import play.api.Configuration
 import play.api.mvc.Result
 import v2.retrieveInsurancePolicies.model.response.*
 import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesControllerFixture.fullRetrieveInsurancePoliciesResponse
-import v2.retrieveInsurancePolicies.mocks.{MockRetrieveInsurancePoliciesService, MockRetrieveInsurancePoliciesValidatorFactory}
 import v2.retrieveInsurancePolicies.model.request.RetrieveInsurancePoliciesRequestData
 
 import scala.concurrent.ExecutionContext.Implicits.global

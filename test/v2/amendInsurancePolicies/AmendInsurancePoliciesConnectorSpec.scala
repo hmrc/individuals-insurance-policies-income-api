@@ -99,7 +99,7 @@ class AmendInsurancePoliciesConnectorSpec extends ConnectorSpec {
   }
 
   "AmendInsurancePoliciesConnector" when {
-    "v2/amendInsurancePolicies" must {
+    "amendInsurancePolicies" must {
       "return a 201 status for a success scenario" in new IfsTest with Test {
         val outcome          = Right(ResponseWrapper(correlationId, ()))
         val taxYear: TaxYear = TaxYear.fromMtd("2019-20")

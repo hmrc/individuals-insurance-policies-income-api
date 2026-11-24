@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package v2.retrieveInsurancePolicies.mocks
+package v2.retrieveInsurancePolicies
 
 import api.controllers.RequestContext
 import api.services.ServiceOutcome
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.TestSuite
-import v2.retrieveInsurancePolicies.model.response.RetrieveInsurancePoliciesResponse
-import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesService
 import v2.retrieveInsurancePolicies.model.request.RetrieveInsurancePoliciesRequestData
+import v2.retrieveInsurancePolicies.model.response.RetrieveInsurancePoliciesResponse
 
 import scala.concurrent.{ExecutionContext, Future}
 

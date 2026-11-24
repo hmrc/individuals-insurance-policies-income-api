@@ -26,7 +26,6 @@ import api.services.MockAuditService
 import play.api.Configuration
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
-import v2.amendInsurancePolicies.mocks.{MockAmendInsurancePoliciesService, MockAmendInsurancePoliciesValidatorFactory}
 import v2.amendInsurancePolicies.model.request.*
 
 import scala.concurrent.ExecutionContext.Implicits.global

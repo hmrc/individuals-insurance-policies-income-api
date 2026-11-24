@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.deleteInsurancePolicies.mocks
+package v2.deleteInsurancePolicies
 
 import api.controllers.validators.Validator
 import api.models.errors.MtdError
@@ -23,7 +23,6 @@ import cats.data.Validated.{Invalid, Valid}
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.TestSuite
-import v2.deleteInsurancePolicies.DeleteInsurancePoliciesValidatorFactory
 import v2.deleteInsurancePolicies.model.request.DeleteInsurancePoliciesRequestData
 
 trait MockDeleteInsurancePoliciesValidatorFactory extends TestSuite with MockFactory {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package v2.amendInsurancePolicies.mocks
+package v2.amendInsurancePolicies
 
 import api.controllers.validators.Validator
 import api.models.errors.MtdError
@@ -24,7 +24,6 @@ import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.TestSuite
 import play.api.libs.json.JsValue
-import v2.amendInsurancePolicies.AmendInsurancePoliciesValidatorFactory
 import v2.amendInsurancePolicies.model.request.AmendInsurancePoliciesRequestData
 
 trait MockAmendInsurancePoliciesValidatorFactory extends TestSuite with MockFactory {

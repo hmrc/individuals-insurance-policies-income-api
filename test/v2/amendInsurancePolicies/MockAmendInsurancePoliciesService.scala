@@ -14,28 +14,32 @@
  * limitations under the License.
  */
 
-package v2.amendInsurancePolicies.mocks
+package v2.amendInsurancePolicies
 
-import api.connectors.DownstreamOutcome
+import api.controllers.RequestContext
+import api.services.ServiceOutcome
 import org.scalamock.handlers.CallHandler
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.TestSuite
-import uk.gov.hmrc.http.HeaderCarrier
-import v2.amendInsurancePolicies.AmendInsurancePoliciesConnector
 import v2.amendInsurancePolicies.model.request.AmendInsurancePoliciesRequestData
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockAmendInsurancePoliciesConnector extends TestSuite with MockFactory {
+trait MockAmendInsurancePoliciesService extends TestSuite with MockFactory {
 
-  val mockAmendInsurancePoliciesConnector: AmendInsurancePoliciesConnector = mock[AmendInsurancePoliciesConnector]
+  val mockAmendInsurancePoliciesService: AmendInsurancePoliciesService = mock[AmendInsurancePoliciesService]
 
-  object MockAmendInsurancePoliciesConnector {
+  object MockAmendInsurancePoliciesService {
 
-    def amendInsurancePolicies(request: AmendInsurancePoliciesRequestData): CallHandler[Future[DownstreamOutcome[Unit]]] = {
-      (mockAmendInsurancePoliciesConnector
-        .amendInsurancePolicies(_: AmendInsurancePoliciesRequestData)(_: HeaderCarrier, _: ExecutionContext, _: String))
-        .expects(request, *, *, *)
+    def amendInsurancePolicies(requestData: AmendInsurancePoliciesRequestData): CallHandler[Future[ServiceOutcome[Unit]]] = {
+      (
+        mockAmendInsurancePoliciesService
+          .amendInsurancePolicies(_: AmendInsurancePoliciesRequestData)(
+            _: RequestContext,
+            _: ExecutionContext
+          )
+        )
+        .expects(requestData, *, *)
     }
 
   }
