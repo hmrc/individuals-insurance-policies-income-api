@@ -25,8 +25,8 @@ import play.api.http.Status.*
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{WSRequest, WSResponse}
 import play.api.test.Helpers.AUTHORIZATION
-import v2.fixtures.RetrieveInsurancePoliciesControllerFixture
-import v2.fixtures.RetrieveInsurancePoliciesControllerFixture.fullRetrieveInsurancePoliciesResponse
+import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesControllerFixture.fullRetrieveInsurancePoliciesResponse
+import v2.retrieveInsurancePolicies.RetrieveInsurancePoliciesControllerFixture
 
 class RetrieveInsurancePoliciesControllerISpec extends InsuranceBaseISpec {
 
